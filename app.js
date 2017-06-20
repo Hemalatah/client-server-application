@@ -79,7 +79,9 @@ function getjson(postJSON) {
 
 var a = https.createServer(options, function (req, res) {
   // read from data
-  req.on('data', function(chunk) {
+  req.on('error', function(err) {
+    console.log(err);
+  }).on('data', function(chunk) {
     res.writeHead(200);
     data = getjson(chunk);
     if (req.url == '/startTest') {
@@ -115,10 +117,7 @@ var a = https.createServer(options, function (req, res) {
     else if (req.url == '/allTests') {
     	res.end(JSON.stringify(allTests));
     }
-  }).listen(8000, function(err){
-    if(err){
-      console.log('Error starting http server');
-    } else {
-      console.log("Server running at http://127.0.0.1:8000/ or http://localhost:8000/");
-    }
-})
+  }).on('end', function() {
+    res.end("Hello! use any of the following path with the server url: /startTest \ /allTests \ /testStatus?testHandle=<someID> \ /testResults?testHandle=<someID>");
+  });
+}).listen(8000);
