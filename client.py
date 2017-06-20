@@ -19,6 +19,7 @@ def print_help(args):
     print "--sitestotest: list the sites that needs to be tested"
     print "--getresult[testHandle]: returns the test results for given testhandle"
     print "--getstatus[testHandle]: returns the test status for a given testhandle"
+    print "--getall: print all the test handles currently server knows about"
 
 def sitestoTest(sitelist):
     data = {"sitestotest" : sitelist[:-1], "iteration" : sitelist[-1]}
